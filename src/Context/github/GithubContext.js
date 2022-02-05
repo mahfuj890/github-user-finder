@@ -1,11 +1,13 @@
-import React, { useState, createContext } from "react";
-import PropTypes from "prop-types";
+import React, { useReducer, createContext } from "react";
+import GithubReducer from "./GithubReducer";
 const GithubContext = createContext();
 
 export const GithubProvider = ({ children }) => {
-  const [user, setUser] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const initialState = {
+    user: [],
+    loading: true,
+  };
+  const [state, dispatch] = useReducer(GithubReducer, initialState);
   const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
   const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
@@ -17,14 +19,16 @@ export const GithubProvider = ({ children }) => {
     });
     const data = await responce.json();
     console.log(data);
-    setUser(data);
-    setLoading(false);
+    dispatch({
+      type: "GET_USER",
+      playLoad: data,
+    });
   };
   return (
     <GithubContext.Provider
       value={{
-        user,
-        loading,
+        user:state.user,
+        loading:state.loading,
         fetchUser,
       }}
     >
@@ -32,7 +36,5 @@ export const GithubProvider = ({ children }) => {
     </GithubContext.Provider>
   );
 };
-
-GithubContext.propTypes = {};
 
 export default GithubContext;

@@ -15,7 +15,7 @@ const UserItem = ({user:{login,avatar_url}}) => {
               </div>
             </div>
             <div>
-              <h2 className='card-title'>{login}</h2>
+              <h2 className='card-title capitalize'>{login}</h2>
               <Link
                 className='text-base-content text-opacity-40'
                 to={`/user/${login}`}
