@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 
 const GithubReducer = (state, action) => {
   switch (action.type) {
@@ -9,13 +9,23 @@ const GithubReducer = (state, action) => {
         user: action.playLoad,
         loading: false,
       };
+      case "SET_LOADING":
+        return{
+          ...state,
+          loading:true,
+        };
+        case 'CLEAR_USER':
+          return{
+            ...state,
+            user:[]
+          };
 
     default:
       return state;
-      break;
+      
   }
 };
 
-GithubReducer.propTypes = {};
+
 
 export default GithubReducer;
