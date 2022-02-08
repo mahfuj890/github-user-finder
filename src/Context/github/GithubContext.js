@@ -42,7 +42,6 @@ export const GithubProvider = ({ children }) => {
       window.location = "/notfound";
     } else {
       const data = await responce.json();
-      console.log(data, "profile data");
       dispatch({
         type: "GET_USERSINGLE",
         playLoad: data,

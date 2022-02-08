@@ -1,0 +1,9 @@
+
+.custom_card_img .card::before{
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+    opacity: 0.45;
+}
