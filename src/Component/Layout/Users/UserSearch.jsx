@@ -1,19 +1,23 @@
 import React, { useState, useContext } from "react";
 import AlertContext from "../../../Context/github/Alert/AlertContext";
+import { fetchUser } from "../../../Context/github/GithubActions";
 import GithubContext from "../../../Context/github/GithubContext";
 
 const UserSearch = () => {
   const [text, setText] = useState("");
-  const {users,fetchUser,clearSearch} = useContext(GithubContext);
+  const {users, dispatch, clearSearch} = useContext(GithubContext);
   const {setAlert} = useContext(AlertContext);
 
   const handleChange = (e) => setText(e.target.value);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (text === "") {
       setAlert("Please Enter Text","error");
     } else {
-      fetchUser(text)
+      dispatch({type:"SET_LOADING"})
+      const users = await fetchUser(text);
+      dispatch({type:"GET_USER",playLoad:users})
+
     }
   };
  const clearResult = ()=>{
@@ -21,6 +25,7 @@ const UserSearch = () => {
   setText('')
  }
   return (
+
     <div className="grid grid-cols-1 md:grid-cols-2">
       <div>
         <form onSubmit={handleSubmit}>
