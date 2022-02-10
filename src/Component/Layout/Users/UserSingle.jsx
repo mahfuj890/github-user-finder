@@ -5,13 +5,20 @@ import GithubContext from "../../../Context/github/GithubContext";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 import RepoLlist from "../Repo/RepoLlist";
+import { getUser } from "../../../Context/github/GithubActions";
 
 const UserSingle = () => {
-  const { user, getUser, loading } = useContext(GithubContext);
+  const { user, loading,dispatch } = useContext(GithubContext);
   console.log({ user });
   const params = useParams();
   useEffect(() => {
-    getUser(params.login);
+    dispatch({type:"SET_LOADING"})
+
+    const getUserData = async ()=>{
+      const userData = await getUser(params.login);
+      dispatch({type:"GET_USERSINGLE",playLoad:userData})
+    }
+    getUserData();
   }, []);
   const {
     name,
@@ -36,7 +43,9 @@ const UserSingle = () => {
     return <Spinner />;
   } else {
     return (
+
       <>
+
         <div className="w-full mx-auto lg:w-10/12">
           <div className="mb-4">
             <Link to="/" className="btn btn-ghost">

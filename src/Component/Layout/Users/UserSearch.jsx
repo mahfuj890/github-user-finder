@@ -21,7 +21,7 @@ const UserSearch = () => {
     }
   };
  const clearResult = ()=>{
-  clearSearch();
+ dispatch({type:"CLEAR_USER"})
   setText('')
  }
   return (
