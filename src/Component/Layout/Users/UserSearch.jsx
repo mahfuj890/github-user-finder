@@ -7,7 +7,7 @@ const UserSearch = () => {
   const [text, setText] = useState("");
   const {users, dispatch, clearSearch} = useContext(GithubContext);
   const {setAlert} = useContext(AlertContext);
-
+   
   const handleChange = (e) => setText(e.target.value);
   const handleSubmit = async (e) => {
     e.preventDefault();
